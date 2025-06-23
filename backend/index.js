@@ -6,9 +6,22 @@ const path    = require('path');
 const fs      = require('fs');
 const pdfParse = require('pdf-parse');
 const axios   = require('axios');
+const cors = require('cors');
 
 const app = express();
 const PORT = 3001;
+
+// Aseta sallitut origin-domainit (kehitys & tuotanto!)
+app.use(cors({
+  origin: [
+    'http://localhost:3000',                      // kehitysympäristö
+    'https://rag-demo-project.vercel.app',        // sinun Vercel production domain
+    'https://rag-demo-project-m277959pt-laovirtanens-projects.vercel.app', // Vercel preview (jos tarvitset)
+    /^https:\/\/.*\.vercel\.app$/                 // Kaikki Vercel subdomainit (regex)
+  ],
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Tiedostojen tallennusasetukset
