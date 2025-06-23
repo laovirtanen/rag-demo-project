@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors');
 const multer  = require('multer');
 const path    = require('path');
 const fs      = require('fs');
@@ -8,7 +9,20 @@ const pdfParse = require('pdf-parse');
 const axios   = require('axios');
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
+
+// CORS-asetukset - salli pyynnöt frontend:stä
+app.use(cors({
+  origin: [
+    'http://localhost:3000',                    // Kehitysympäristö
+    'https://rag-demo-project.vercel.app',      // Tuotanto Vercel
+    'https://askmydocs.vercel.app',             // Vaihtoehtoinen domain
+    /^https:\/\/.*\.vercel\.app$/,              // Kaikki Vercel-domainit
+    /^https:\/\/rag-demo-project-.*\.vercel\.app$/ // Kaikki tämän projektin Vercel-versiot
+  ],
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Tiedostojen tallennusasetukset
@@ -218,6 +232,16 @@ app.post('/query', async (req, res) => {
 });
 
 app.get('/', (_, res) => res.send('AskMyDocs backend toimii!'));
+
+// Debug-endpointti CORS-testaukseen
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'OK',
+    timestamp: new Date().toISOString(),
+    origin: req.get('Origin') || 'No origin header',
+    userAgent: req.get('User-Agent') || 'No user agent'
+  });
+});
 
 // Käynnistä palvelin
 app.listen(PORT, () => console.log(`Backend käynnissä portissa ${PORT}`));
