@@ -1,0 +1,29 @@
+# Ympäristömuuttujat
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ladatut tiedostot
+uploads/
+
+# Lokitiedostot
+logs
+*.log
+
+# IDE tiedostot
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS tiedostot
+.DS_Store
+Thumbs.db
