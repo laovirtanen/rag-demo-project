@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { Upload, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
-import { API_ENDPOINTS } from '../config/api';
 
 const FileUpload = ({ onFileUploaded }) => {
   const [uploading, setUploading] = useState(false);
@@ -53,7 +52,8 @@ const FileUpload = ({ onFileUploaded }) => {
     formData.append('file', file);
 
     try {
-      const response = await axios.post(API_ENDPOINTS.upload, formData, {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+      const response = await axios.post(`${apiUrl}/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

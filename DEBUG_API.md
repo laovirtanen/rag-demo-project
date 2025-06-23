@@ -1,6 +1,15 @@
 # API Connection Debug
 
-Tämä tiedosto auttaa vianmäärityksessä, jos API-yhteys ei toimi.
+Tämä tiedosto auttaa via### 5. Frontend API-kutsut
+
+Frontend käyttää yksinkertaista API-konfiguraatiota:
+- `FileUpload.js` - POST `/upload` (käyttää `process.env.REACT_APP_API_URL`)
+- `QueryInterface.js` - POST `/query` (käyttää `process.env.REACT_APP_API_URL`)
+
+Kumpikin komponentti määrittää API URL:n:
+```javascript
+const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+```tyksessä, jos API-yhteys ei toimi.
 
 ## Vercel Frontend → Railway Backend
 

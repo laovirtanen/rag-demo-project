@@ -11,12 +11,8 @@ const axios   = require('axios');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// CORS-asetukset - salli pyynnöt frontend:stä
-app.use(cors({
-  origin: true, // Sallii kaikki originit kehitysvaiheessa
-  credentials: true
-}));
-
+// CORS-asetukset
+app.use(cors());
 app.use(express.json());
 
 // Tiedostojen tallennusasetukset
