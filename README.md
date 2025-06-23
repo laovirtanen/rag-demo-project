@@ -28,23 +28,27 @@ Moderni web-sovellus, jossa voit ladata PDF- tai TXT-dokumentteja ja kysyä niis
 
 ```mermaid
 graph TD
-  User -->|selain| Frontend
-  Frontend -->|API| Backend
-  Backend -->|embedding| OpenAI
-  Backend -->|vektorit| Weaviate
+    User[👤 Käyttäjä] -->|selain| Frontend[⚛️ React Frontend]
+    Frontend -->|HTTP API| Backend[🚀 Node.js Backend]
+    Backend -->|embedding| OpenAI[🤖 OpenAI API]
+    Backend -->|vektorit| Weaviate[🔍 Weaviate Cloud]
+    
+    Backend -->|vastaus| Frontend
+    Frontend -->|näyttää| User
+```
 
 ---
 
-Kokeile itse!
-Avaa Live-demo
+## Kokeile itse!
 
-Lataa PDF- tai TXT-tiedosto
-
-Kysy mitä tahansa tiedoston sisällöstä
+1. **Avaa live-demo** 👆
+2. **Lataa PDF- tai TXT-tiedosto** 📄
+3. **Kysy mitä tahansa tiedoston sisällöstä** 💬
 
 ---
 
-Demo-projektin tarkoitus
-Osoittaa kuinka helposti RAG-pohjainen haku voidaan toteuttaa pilvipalveluilla
+## Demo-projektin tarkoitus
 
-Soveltuu pohjaksi mm. yritysdokumenttien, ohjeiden, tai minkä tahansa tekstiaineiston hakuun
+- Osoittaa kuinka helposti RAG-pohjainen haku voidaan toteuttaa pilvipalveluilla
+- Soveltuu pohjaksi mm. yritysdokumenttien, ohjeiden, tai minkä tahansa tekstiaineiston hakuun
+
