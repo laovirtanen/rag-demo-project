@@ -90,10 +90,20 @@ async function getEmbedding(text) {
   return response.data.data[0].embedding;
 }
 
+// Apufunktio Weaviate-pyyntöjen headereiden luomiseen
+function getWeaviateHeaders() {
+  return {
+    'Authorization': `Bearer ${process.env.WEAVIATE_API_KEY}`,
+    'Content-Type': 'application/json'
+  };
+}
+
 // Luo Weaviate-tietorakenne dokumenttien tallentamista varten
 async function createWeaviateClass() {
   try {
-    const check = await axios.get(`${process.env.WEAVIATE_URL}/v1/schema`);
+    const check = await axios.get(`${process.env.WEAVIATE_URL}/v1/schema`, {
+      headers: getWeaviateHeaders()
+    });
     const exists = check.data.classes && check.data.classes.find(c => c.class === "Chunk");
     if (exists) return;
     await axios.post(`${process.env.WEAVIATE_URL}/v1/schema`, {
@@ -104,6 +114,8 @@ async function createWeaviateClass() {
         { name: "filename", dataType: ["string"] },
         { name: "chunk_index", dataType: ["int"] }
       ]
+    }, {
+      headers: getWeaviateHeaders()
     });
   } catch (e) {
     // Sivutetaan virheet
@@ -122,6 +134,8 @@ async function upsertChunks(chunks, embeddings, filename) {
         chunk_index: i
       },
       vector: embeddings[i]
+    }, {
+      headers: getWeaviateHeaders()
     });
   }
 }
@@ -145,7 +159,9 @@ async function queryWeaviate(queryEmbedding, limit = 5) {
       }
     `
   };
-  const response = await axios.post(`${process.env.WEAVIATE_URL}/v1/graphql`, graphqlQuery);
+  const response = await axios.post(`${process.env.WEAVIATE_URL}/v1/graphql`, graphqlQuery, {
+    headers: getWeaviateHeaders()
+  });
   return response.data.data.Get.Chunk;
 }
 
