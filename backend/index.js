@@ -80,10 +80,10 @@ async function getEmbedding(text) {
 // Luo Weaviate-tietorakenne dokumenttien tallentamista varten
 async function createWeaviateClass() {
   try {
-    const check = await axios.get('http://localhost:8080/v1/schema');
+    const check = await axios.get(`${process.env.WEAVIATE_URL}/v1/schema`);
     const exists = check.data.classes && check.data.classes.find(c => c.class === "Chunk");
     if (exists) return;
-    await axios.post('http://localhost:8080/v1/schema', {
+    await axios.post(`${process.env.WEAVIATE_URL}/v1/schema`, {
       class: "Chunk",
       vectorizer: "none",
       properties: [
@@ -101,7 +101,7 @@ async function createWeaviateClass() {
 async function upsertChunks(chunks, embeddings, filename) {
   await createWeaviateClass();
   for (let i = 0; i < chunks.length; i++) {
-    await axios.post('http://localhost:8080/v1/objects', {
+    await axios.post(`${process.env.WEAVIATE_URL}/v1/objects`, {
       class: "Chunk",
       properties: {
         content: chunks[i],
@@ -132,7 +132,7 @@ async function queryWeaviate(queryEmbedding, limit = 5) {
       }
     `
   };
-  const response = await axios.post('http://localhost:8080/v1/graphql', graphqlQuery);
+  const response = await axios.post(`${process.env.WEAVIATE_URL}/v1/graphql`, graphqlQuery);
   return response.data.data.Get.Chunk;
 }
 
