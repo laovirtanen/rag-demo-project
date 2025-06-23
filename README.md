@@ -24,21 +24,6 @@ Moderni web-sovellus, jossa voit ladata PDF- tai TXT-dokumentteja ja kysyä niis
 
 ---
 
-## Järjestelmän arkkitehtuuri
-
-```mermaid
-graph TD
-    User[👤 Käyttäjä] -->|selain| Frontend[⚛️ React Frontend]
-    Frontend -->|HTTP API| Backend[🚀 Node.js Backend]
-    Backend -->|embedding| OpenAI[🤖 OpenAI API]
-    Backend -->|vektorit| Weaviate[🔍 Weaviate Cloud]
-    
-    Backend -->|vastaus| Frontend
-    Frontend -->|näyttää| User
-```
-
----
-
 ## Kokeile itse!
 
 1. **Avaa live-demo** 👆
