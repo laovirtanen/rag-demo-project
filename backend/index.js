@@ -11,6 +11,10 @@ const axios   = require('axios');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+console.log('Environment PORT:', process.env.PORT);
+console.log('Using PORT:', PORT);
+console.log('NODE_ENV:', process.env.NODE_ENV);
+
 // CORS-asetukset
 app.use(cors());
 app.use(express.json());
@@ -234,4 +238,8 @@ app.get('/health', (req, res) => {
 });
 
 // Käynnistä palvelin
-app.listen(PORT, () => console.log(`Backend käynnissä portissa ${PORT}`));
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Backend käynnissä portissa ${PORT}`);
+  console.log(`Server listening on 0.0.0.0:${PORT}`);
+  console.log('Ready to accept connections...');
+});
