@@ -11,13 +11,17 @@ REACT_APP_API_URL = https://rag-demo-project-production.up.railway.app
 
 ### 2. Testaa API-yhteys suoraan
 ```bash
-# Health-check
-curl https://rag-demo-project-production.up.railway.app/health
+# Backend perus-testi
+curl https://rag-demo-project-production.up.railway.app/
 
 # CORS preflight test
 curl -I -X OPTIONS https://rag-demo-project-production.up.railway.app/upload \
   -H "Origin: https://rag-demo-project.vercel.app" \
   -H "Access-Control-Request-Method: POST"
+
+# Etsi vastauksesta:
+# - Access-Control-Allow-Origin: https://rag-demo-project.vercel.app
+# - Access-Control-Allow-Methods: POST
 ```
 
 ### 3. Browser DevTools
