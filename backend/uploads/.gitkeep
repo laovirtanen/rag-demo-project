@@ -1,2 +1,4 @@
 # Tämä tiedosto pitää uploads-kansion Git-repositoriossa
 # Varsinaiset upload-tiedostot jätetään pois .gitignore:n mukaan
+# This file keeps the uploads folder in the Git repository
+# Actual upload files are excluded according to .gitignore
