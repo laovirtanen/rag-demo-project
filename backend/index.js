@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const express = require('express');
-const cors = require('cors');
 const multer  = require('multer');
 const path    = require('path');
 const fs      = require('fs');
@@ -9,14 +8,7 @@ const pdfParse = require('pdf-parse');
 const axios   = require('axios');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
-
-console.log('Environment PORT:', process.env.PORT);
-console.log('Using PORT:', PORT);
-console.log('NODE_ENV:', process.env.NODE_ENV);
-
-// CORS-asetukset
-app.use(cors());
+const PORT = 3001;
 app.use(express.json());
 
 // Tiedostojen tallennusasetukset
@@ -227,19 +219,5 @@ app.post('/query', async (req, res) => {
 
 app.get('/', (_, res) => res.send('AskMyDocs backend toimii!'));
 
-// Debug-endpointti CORS-testaukseen
-app.get('/health', (req, res) => {
-  res.json({
-    status: 'OK',
-    timestamp: new Date().toISOString(),
-    origin: req.get('Origin') || 'No origin header',
-    userAgent: req.get('User-Agent') || 'No user agent'
-  });
-});
-
 // Käynnistä palvelin
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Backend käynnissä portissa ${PORT}`);
-  console.log(`Server listening on 0.0.0.0:${PORT}`);
-  console.log('Ready to accept connections...');
-});
+app.listen(PORT, () => console.log(`Backend käynnissä portissa ${PORT}`));
