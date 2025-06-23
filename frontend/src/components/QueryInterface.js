@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Send, Loader2 } from 'lucide-react';
+import { API_ENDPOINTS } from '../config/api';
 
 const QueryInterface = ({ onResponse, disabled }) => {
   const [question, setQuestion] = useState('');
@@ -22,8 +23,7 @@ const QueryInterface = ({ onResponse, disabled }) => {
     });
 
     try {
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001';
-      const response = await axios.post(`${apiUrl}/query`, {
+      const response = await axios.post(API_ENDPOINTS.query, {
         question: currentQuestion,
         limit: 5
       });
