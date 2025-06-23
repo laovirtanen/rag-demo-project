@@ -22,7 +22,8 @@ const QueryInterface = ({ onResponse, disabled }) => {
     });
 
     try {
-      const response = await axios.post('/query', {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+      const response = await axios.post(`${apiUrl}/query`, {
         question: currentQuestion,
         limit: 5
       });
