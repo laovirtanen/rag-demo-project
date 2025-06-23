@@ -13,13 +13,7 @@ const PORT = process.env.PORT || 3001;
 
 // CORS-asetukset - salli pyynnöt frontend:stä
 app.use(cors({
-  origin: [
-    'http://localhost:3000',                    // Kehitysympäristö
-    'https://rag-demo-project.vercel.app',      // Tuotanto Vercel
-    'https://askmydocs.vercel.app',             // Vaihtoehtoinen domain
-    /^https:\/\/.*\.vercel\.app$/,              // Kaikki Vercel-domainit
-    /^https:\/\/rag-demo-project-.*\.vercel\.app$/ // Kaikki tämän projektin Vercel-versiot
-  ],
+  origin: true, // Sallii kaikki originit kehitysvaiheessa
   credentials: true
 }));
 
