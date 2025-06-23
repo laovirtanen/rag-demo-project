@@ -15,9 +15,9 @@ const PORT = 3001;
 app.use(cors({
   origin: [
     'http://localhost:3000',                      // kehitysympäristö
-    'https://rag-demo-project.vercel.app',        // sinun Vercel production domain
-    'https://rag-demo-project-m277959pt-laovirtanens-projects.vercel.app', // Vercel preview (jos tarvitset)
-    /^https:\/\/.*\.vercel\.app$/                 // Kaikki Vercel subdomainit (regex)
+    'https://rag-demo-project.vercel.app',        
+    'https://rag-demo-project-m277959pt-laovirtanens-projects.vercel.app', // Vercel preview 
+    /^https:\/\/.*\.vercel\.app$/                 // Kaikki Vercel subdomainit
   ],
   credentials: true
 }));
@@ -90,7 +90,7 @@ async function getEmbedding(text) {
   return response.data.data[0].embedding;
 }
 
-// Apufunktio Weaviate-pyyntöjen headereiden luomiseen
+// Apufunktio
 function getWeaviateHeaders() {
   return {
     'Authorization': `Bearer ${process.env.WEAVIATE_API_KEY}`,
@@ -98,7 +98,7 @@ function getWeaviateHeaders() {
   };
 }
 
-// Luo Weaviate-tietorakenne dokumenttien tallentamista varten
+// Weaviate-tietorakenne dokumenttien tallentamista varten
 async function createWeaviateClass() {
   try {
     const check = await axios.get(`${process.env.WEAVIATE_URL}/v1/schema`, {
@@ -118,7 +118,6 @@ async function createWeaviateClass() {
       headers: getWeaviateHeaders()
     });
   } catch (e) {
-    // Sivutetaan virheet
   }
 }
 
@@ -188,7 +187,7 @@ async function askOpenAIWithContext(chunks, question) {
     {
       model: "gpt-4o",
       messages: messages,
-      max_tokens: 1000,  // Pidempiä vastauksia varten
+      max_tokens: 1000, 
       temperature: 0.2
     },
     {
